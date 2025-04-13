@@ -13,7 +13,7 @@
 
         <div class="mb-3">
             <label class="form-label">Price</label>
-            <input type="number" step="0.001" class="form-control"/>
+            <input id="kell" type="number" step="0.001" oninput="limitPrice(this)" class="form-control"/>
             <label class="form-label">Matrix</label>
             <textarea id="limitedTextarea" class="form-control" oninput="limitRows(this, 13)" style="resize: none;" rows="13"></textarea>
             <Button id="submitButton" onclick="buttonClocked()" class="btn btn-primary w-100" disabled>Submit</Button>
