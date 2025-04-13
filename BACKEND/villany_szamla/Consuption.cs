@@ -2,38 +2,78 @@
 {
     public class Consuption
     {
-        public static int[] AddArray(int[] array)
+        public Consuption(double price, string input)
         {
-            if (array.Length != 12)
-            {
-                throw new ArgumentException("Only 12 length array accepted");
-            }
-            return array;
+            GetFirstYear(input);
+            GetListOfYears(input);
+            Price = price;
         }
 
-        public static int GetFirstYear(string input)
+
+
+        public void GetFirstYear(string input)
         {
-            string[] stripped = input.Split("\n");
-            return int.Parse(stripped[0].Split(",")[0]);
+            string[] stripped = input.Split("-");
+            StartYear = int.Parse(stripped[0].Split(",")[0]);
         }
 
-        public static List<double[]> GetListOfYears(double price, string input)
+        public void GetListOfYears(string input)
         {
-            string[] stripped = input.Split("\n");
-            List<double[]> res = new List<double[]>();
-            for (int i = 1; i < stripped.Length; i++)
+
+            Dictionary<int, double[]> data = new Dictionary<int, double[]>();
+
+
+            string[] lines = input.Split('-');
+
+
+            int[] years = Array.ConvertAll(lines[0].Split(','), int.Parse);
+
+
+            for (int i = 0; i < years.Length; i++)
             {
-                double[] temp = new double[12];
-                for (int j = 0; j < temp.Length; j++)
+                double[] monthlyUsage = new double[lines.Length - 1];
+                for (int j = 1; j < lines.Length; j++)
                 {
-                    temp[j] = double.Parse(stripped[i].Split(",")[j])*price+23.4 ;
+                    monthlyUsage[j - 1] = double.Parse(lines[j].Split(',')[i]);
                 }
-                res.Add(temp);
+                data[years[i]] = monthlyUsage;
             }
-            return res;
+            ListOfYears = data;
         }
 
         public int StartYear { get; set; }
-        public List<double[]> ListOfYears { get; set; }
+        Dictionary<int, double[]> ListOfYears { get; set; }
+        double Price { get; set; }
+        public Dictionary<int, double[]> Cost
+        {
+            get
+            {
+                Dictionary<int, double[]> res = new Dictionary<int, double[]>();
+                foreach (KeyValuePair<int, double[]> a in ListOfYears)
+                {
+                    res.Add(a.Key, a.Value.Select(x => double.Round(x * Price + 23.4, 2)).ToArray());
+                }
+                return res;
+            }
+        }
+        public Dictionary<int, double> CostPerYear
+        {
+            get
+            {
+                Dictionary<int, double> res = new Dictionary<int, double>();
+                double preSum = 0;
+
+                foreach (var kvp in Cost)
+                {
+                    double currentSum = kvp.Value.Sum();
+                    if (preSum > 350000)
+                    {
+                        currentSum *= 0.83;
+                    }
+                    res.Add(kvp.Key, double.Round(currentSum,2));
+                }
+                return res;
+            }
+        }
     }
 }
