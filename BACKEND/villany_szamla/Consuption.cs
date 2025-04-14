@@ -1,4 +1,6 @@
-﻿namespace villany_szamla
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace villany_szamla
 {
     public class Consuption
     {
@@ -71,6 +73,29 @@
                         currentSum *= 0.83;
                     }
                     res.Add(kvp.Key, double.Round(currentSum,2));
+                    preSum = currentSum;
+                }
+                return res;
+            }
+        }
+        public Dictionary<int,bool> HasReduction
+        {
+            get
+            {
+                Dictionary<int, bool> res = new Dictionary<int, bool>();
+                double preSum = 0;
+
+                foreach (var kvp in Cost)
+                {
+                    double currentSum = kvp.Value.Sum();
+                    bool reduction = false;
+                    if (preSum > 350000)
+                    {
+                        currentSum *= 0.83;
+                        reduction = true;
+                    }
+                    res.Add(kvp.Key, reduction);
+                    preSum = currentSum;
                 }
                 return res;
             }

@@ -2,11 +2,59 @@
 
 
 var checkedForBoth = false;
-
-
-function buttonClocked(){
-    alert("vmi")
+const apiUrl = "http://localhost:5197/Consuption?price="
+var responseData;
+function buttonClicked(){
+    const textarea = document.getElementById("limitedTextarea");
+    const price = document.getElementById("kell");
+    var text = textarea.value.replace(/\n/g,"-")
+    text = apiUrl + kell.value + "&input=" + text;
+    fetch(text,{
+        method: "GET",
+        headers: {
+            "accept": "text/plain"
+        }
+    })
+    .then(response => {
+        if (!response.ok){
+            throw new Error("Error on response")
+        }
+        return response.json();
+    })
+    .then(data=>{
+        responseData = data;
+    })
+    .catch(error => {
+        console.error("Error on fetching:",error);
+    })
 }
+
+function viewResponse(){
+    const tbody = getElementById("table-content");
+    tbody.innerHTML = "";
+
+// Create rows for costPerYear
+Object.keys(responseData.costPerYear).forEach(year => {
+  const row = document.createElement("tr");
+
+  // Apply green background if hasReduction is true for the year
+  if (responseData.hasReduction[year]) {
+    row.style.backgroundColor = "lightgreen";
+  }
+
+  const yearCell = document.createElement("td");
+  yearCell.textContent = year;
+  row.appendChild(yearCell);
+
+  const costCell = document.createElement("td");
+  costCell.textContent = responseData.costPerYear[year];
+  row.appendChild(costCell);
+
+  tbody.appendChild(row);
+});
+}
+
+
 function limitPrice(text){
     const button = document.getElementById("submitButton");
 
