@@ -24,30 +24,35 @@ function buttonClicked(){
     .then(data=>{
         responseData = data;
     })
+    .then(()=>{
+        viewResponse();
+    })
     .catch(error => {
         console.error("Error on fetching:",error);
     })
+    
 }
 
 function viewResponse(){
-    const tbody = getElementById("table-content");
+    const tbody = document.getElementById("table-content");
     tbody.innerHTML = "";
 
 // Create rows for costPerYear
-Object.keys(responseData.costPerYear).forEach(year => {
+Object.keys(responseData[0].costPerYear).forEach(year => {
   const row = document.createElement("tr");
 
   // Apply green background if hasReduction is true for the year
-  if (responseData.hasReduction[year]) {
-    row.style.backgroundColor = "lightgreen";
+  if (responseData[0].hasReduction[year]) {
+    row.classList.add("bg-success");
   }
 
   const yearCell = document.createElement("td");
   yearCell.textContent = year;
+
   row.appendChild(yearCell);
 
   const costCell = document.createElement("td");
-  costCell.textContent = responseData.costPerYear[year];
+  costCell.textContent = responseData[0].costPerYear[year];
   row.appendChild(costCell);
 
   tbody.appendChild(row);
