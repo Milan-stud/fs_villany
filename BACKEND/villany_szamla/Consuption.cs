@@ -64,15 +64,16 @@ namespace villany_szamla
             {
                 Dictionary<int, double> res = new Dictionary<int, double>();
                 double preSum = 0;
-
+                double prePreSum = 0;
                 foreach (var kvp in Cost)
                 {
                     double currentSum = kvp.Value.Sum();
-                    if (preSum > 350000)
+                    if (preSum > 350000 && prePreSum > 350000)
                     {
                         currentSum *= 0.83;
                     }
                     res.Add(kvp.Key, double.Round(currentSum,2));
+                    prePreSum = preSum;
                     preSum = currentSum;
                 }
                 return res;
@@ -84,17 +85,18 @@ namespace villany_szamla
             {
                 Dictionary<int, bool> res = new Dictionary<int, bool>();
                 double preSum = 0;
-
+                double prePreSum = 0;
                 foreach (var kvp in Cost)
                 {
                     double currentSum = kvp.Value.Sum();
                     bool reduction = false;
-                    if (preSum > 350000)
+                    if (preSum > 350000 && prePreSum > 350000)
                     {
                         currentSum *= 0.83;
                         reduction = true;
                     }
                     res.Add(kvp.Key, reduction);
+                    prePreSum = preSum;
                     preSum = currentSum;
                 }
                 return res;

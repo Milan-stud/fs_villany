@@ -33,7 +33,7 @@ function buttonClicked(){
     
 }
 
-function viewResponse(){
+function viewResponseOld(){
     const tbody = document.getElementById("table-content");
     tbody.innerHTML = "";
 
@@ -43,7 +43,7 @@ Object.keys(responseData[0].costPerYear).forEach(year => {
 
   // Apply green background if hasReduction is true for the year
   if (responseData[0].hasReduction[year]) {
-    row.classList.add("bg-success");
+    row.classList.add("table-success");
   }
 
   const yearCell = document.createElement("td");
@@ -58,6 +58,20 @@ Object.keys(responseData[0].costPerYear).forEach(year => {
   tbody.appendChild(row);
 });
 }
+
+function viewResponse(){
+    const table = document.getElementById("table-content")
+    table.innerHTML = "";
+    const thead = document.createElement("thead");
+    Object.keys(responseData[0].costPerYear).forEach(year=>{
+        const th = document.createElement("th")
+        th.textContent = year;
+        thead.appendChild(th)
+    })
+    table.appendChild(thead);
+}
+
+
 
 
 function limitPrice(text){
