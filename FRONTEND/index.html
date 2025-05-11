@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Majd átírom</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
 
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Majd átírom</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 
-        <div class="container card" id="allInput">
-            <label class="form-label p-3">Price</label>
-            <input id="kell" type="number" step="0.001" oninput="limitPrice(this)" class="form-control p-3"/>
-            <label class="form-label p-3">Matrix</label>
-            <textarea id="limitedTextarea" class="form-control p-3" oninput="limitRows(this, 13)" style="resize: none;" rows="13"></textarea>
-            <Button id="submitButton" onclick="buttonClicked()" class="btn btn-primary w-100 p-3" disabled>Submit</Button>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mt-3" id="allInput">
+            <div class="card-header">Inputs</div>
+            <div class="card-body">
+                <label class="form-label ">Price</label>
+                <input id="kell" type="number" step="0.001" oninput="limitPrice(this)" class="form-control " />
+                <label class="form-label ">Matrix</label>
+                <textarea id="limitedTextarea" class="form-control " oninput="limitRows(this, 13)" style="resize: none;" rows="13"></textarea>
+                <Button id="submitButton" onclick="buttonClicked()" class="btn btn-primary w-100 mt-3" disabled>Submit</Button>
+            </div>
         </div>
-        <div class="container">
-            <table id="table-content" class="table">
-                
-            </table>
-        </div>
+    </div>
+    <div class="container">
+        <table id="table-content" class="table">
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-        <script src="communation.js"></script>
-    </body>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+    <script src="communation.js"></script>
+</body>
+
 </html>
